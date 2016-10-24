@@ -23,7 +23,7 @@
 ![](art/download.png)
 
 #### 截图
-<a href="art/art_index.png"><img src="art_index.png" width="40%"/></a> 
+<a href="art/art_index.png"><img src="art/art_index.png" width="40%"/></a> 
 <a href="art/art_menu.png"><img src="art/art_menu.png" width="40%"/></a>
 
 <a href="rt_coll_article.png"><img src="art/art_coll_article.png" width="40%"/></a> 
