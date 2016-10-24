@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_action_share"
+        android:icon="@drawable/share"
+        android:orderInCategory="1"
+        android:title=""
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_action_fav"
+        android:icon="@drawable/collect"
+        android:orderInCategory="2"
+        android:title=""
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_action_comment"
+        android:icon="@drawable/comment"
+        android:orderInCategory="3"
+        android:title=""
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_action_comment_num"
+        android:orderInCategory="4"
+        android:title=""
+        android:visible="false"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_action_parise"
+        android:icon="@drawable/praise"
+        android:orderInCategory="5"
+        android:title=""
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/menu_action_parise_num"
+        android:orderInCategory="6"
+        android:visible="false"
+        app:showAsAction="always"/>
+</menu>

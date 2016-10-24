@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/splash_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#18191B"/>
+
+    <RelativeLayout
+        android:id="@+id/splash_bottom_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#18191B"
+        android:padding="@dimen/activity_horizontal_margin">
+
+        <com.lzx.zhihudaily.widget.DailyIconView
+            android:id="@+id/daily_icon_view"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/shape_daily_icon_bg"
+            android:padding="5dp"/>
+
+        <TextView
+            android:id="@+id/big_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/daily_icon_view"
+            android:text="@string/app_name"
+            android:textColor="@color/splash_big_text"
+            android:textSize="@dimen/default_big_text_size"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/big_text"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@+id/daily_icon_view"
+            android:text="@string/splash_text"
+            android:textColor="@color/splash_small_text"
+            android:textSize="@dimen/default_tiny_text_size"/>
+    </RelativeLayout>
+</RelativeLayout>
