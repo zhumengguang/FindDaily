@@ -59,21 +59,24 @@ public class SplashActivity extends BaseActivity {
 
     @Override
     protected void initData() {
-        RetrofitHelper.getZhihuDailyService().getStartImageInfo()
-                .compose(bindToLifecycle())
-                .flatMap(new Func1<StartImage, Observable<StartImage>>() {
-                    @Override
-                    public Observable<StartImage> call(StartImage startImage) {
-                        return Observable.just(startImage);
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(startImage -> {
-                    initSplashImage(startImage.getImg());
-                }, throwable -> {
-                    showErrorMsg();
-                });
+//         2017/7/22   由于这个接口已经用不了了，所以直接配个图片就算了，妹子图哦。
+//         RetrofitHelper.getZhihuDailyService().getStartImageInfo()
+//                 .compose(bindToLifecycle())
+//                 .flatMap(new Func1<StartImage, Observable<StartImage>>() {
+//                     @Override
+//                     public Observable<StartImage> call(StartImage startImage) {
+//                         return Observable.just(startImage);
+//                     }
+//                 })
+//                 .subscribeOn(Schedulers.io())
+//                 .observeOn(AndroidSchedulers.mainThread())
+//                 .subscribe(startImage -> {
+//                     initSplashImage(startImage.getImg());
+//                 }, throwable -> {
+//                     showErrorMsg();
+//                 });
+        
+        initSplashImage("http://ww4.sinaimg.cn/large/610dc034jw1f41lxgc3x3j20jh0tcn14.jpg");
     }
 
     private void initSplashImage(String url) {
