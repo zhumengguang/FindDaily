@@ -25,13 +25,11 @@ import com.lzx.zhihudaily.utils.HtmlUtil;
 import com.lzx.zhihudaily.utils.SnackbarUtil;
 import com.lzx.zhihudaily.widget.ParallaxScrollView;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import io.realm.RealmAsyncTask;
 import io.realm.RealmResults;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 
 /**
@@ -91,13 +89,6 @@ public class DailyDetailActivity extends BaseActivity implements View.OnClickLis
 
         RetrofitHelper.getZhihuDailyService().getExtraNewsInfo(newsId)
                 .compose(bindToLifecycle())
-                .flatMap(new Func1<StoryExtra, Observable<StoryExtra>>() {
-
-                    @Override
-                    public Observable<StoryExtra> call(StoryExtra storyExtra) {
-                        return Observable.just(storyExtra);
-                    }
-                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::initToolBarData);
@@ -122,13 +113,6 @@ public class DailyDetailActivity extends BaseActivity implements View.OnClickLis
 
         RetrofitHelper.getZhihuDailyService().getNewsDetailInfo(newsId)
                 .compose(bindToLifecycle())
-                .flatMap(new Func1<NewsDetail, Observable<NewsDetail>>() {
-
-                    @Override
-                    public Observable<NewsDetail> call(NewsDetail newsDetail) {
-                        return Observable.just(newsDetail);
-                    }
-                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::finishTask);

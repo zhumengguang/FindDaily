@@ -31,10 +31,9 @@ import com.lzx.zhihudaily.widget.BannerHolderView;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * Created by lzx on 2016/10/21.
@@ -142,16 +141,10 @@ public class HomePageFragment extends BaseFragment {
     private void loadLastDaily() {
         RetrofitHelper.getZhihuDailyService().getLatestNewsInfo()
                 .compose(bindToLifecycle())
-                .flatMap(new Func1<LatestNews, Observable<LatestNews>>() {
-
-                    @Override
-                    public Observable<LatestNews> call(LatestNews latestNews) {
-                        return Observable.just(changeData(latestNews));
-                    }
-                })
+                .map(this::changeData)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(() -> mHomePageAdapter.clear())
+                .doOnSubscribe(disposable -> mHomePageAdapter.clear())
                 .subscribe(this::finishTask);
     }
 
@@ -209,13 +202,7 @@ public class HomePageFragment extends BaseFragment {
     private void loadMoreDaily() {
         RetrofitHelper.getZhihuDailyService().getBeforeNewsInfo(currentTime)
                 .compose(bindToLifecycle())
-                .flatMap(new Func1<LatestNews, Observable<LatestNews>>() {
-
-                    @Override
-                    public Observable<LatestNews> call(LatestNews latestNews) {
-                        return Observable.just(changeData(latestNews));
-                    }
-                })
+                .map(this::changeData)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(latestNews -> {

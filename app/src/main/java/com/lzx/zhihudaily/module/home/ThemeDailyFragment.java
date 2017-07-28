@@ -31,13 +31,11 @@ import com.lzx.zhihudaily.utils.ToastUtil;
 
 import java.util.ArrayList;
 
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import io.realm.Realm;
 import io.realm.RealmAsyncTask;
 import io.realm.RealmResults;
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by xian on 2016/10/22.
@@ -228,16 +226,9 @@ public class ThemeDailyFragment extends BaseFragment {
     private void loadThemeList() {
         RetrofitHelper.getZhihuDailyService().getThemeDetailInfo(mThemeDaily.getId())
                 .compose(bindToLifecycle())
-                .flatMap(new Func1<ThemeDailyDetail, Observable<ThemeDailyDetail>>() {
-
-                    @Override
-                    public Observable<ThemeDailyDetail> call(ThemeDailyDetail themeDailyDetail) {
-                        return Observable.just(themeDailyDetail);
-                    }
-                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnSubscribe(() -> {
+                .doOnSubscribe(disposable -> {
                     mThemeListAdapter.clear();
                     mThemeEditorAdapter.clear();
                 })

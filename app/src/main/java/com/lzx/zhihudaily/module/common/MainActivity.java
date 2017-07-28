@@ -16,7 +16,6 @@ import com.lzx.zhihudaily.R;
 import com.lzx.zhihudaily.adapter.HomeNavAdapter;
 import com.lzx.zhihudaily.base.BaseActivity;
 import com.lzx.zhihudaily.eitity.ThemeDaily;
-import com.lzx.zhihudaily.eitity.ThemeInfo;
 import com.lzx.zhihudaily.module.collect.CollectActivity;
 import com.lzx.zhihudaily.module.home.HomePageFragment;
 import com.lzx.zhihudaily.module.home.ThemeDailyFragment;
@@ -26,10 +25,9 @@ import com.lzx.zhihudaily.utils.ToastUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 
 public class MainActivity extends BaseActivity {
 
@@ -73,15 +71,11 @@ public class MainActivity extends BaseActivity {
         mRecyclerView.setAdapter(mNavAdapter);
         RetrofitHelper.getZhihuDailyService().getThemeInfo()
                 .compose(bindToLifecycle())
-                .flatMap(new Func1<ThemeInfo, Observable<List<ThemeDaily>>>() {
-
-                    @Override
-                    public Observable<List<ThemeDaily>> call(ThemeInfo themeInfo) {
-                        List<ThemeDaily> list = themeInfo.getOthers();
-                        ThemeDaily themeDaily = new ThemeDaily(true, getString(R.string.menu_index));
-                        list.add(0, themeDaily);
-                        return Observable.just(list);
-                    }
+                .map(themeInfo -> {
+                    List<ThemeDaily> list = themeInfo.getOthers();
+                    ThemeDaily themeDaily = new ThemeDaily(true, getString(R.string.menu_index));
+                    list.add(0, themeDaily);
+                    return list;
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -137,11 +131,6 @@ public class MainActivity extends BaseActivity {
     private void switchFragment() {
         if (currentTabIndex != index) {
             FragmentTransaction trx = getSupportFragmentManager().beginTransaction();
-//            trx.hide(fragments[currentTabIndex]);
-//            if (!fragments[index].isAdded()) {
-//                trx.add(R.id.container, fragments[index]);
-//            }
-//            trx.show(fragments[index]).commit();
             trx.replace(R.id.container,fragments[index]).addToBackStack(null).commit(); //这里使用替换，不保留状态
         }
         currentTabIndex = index;

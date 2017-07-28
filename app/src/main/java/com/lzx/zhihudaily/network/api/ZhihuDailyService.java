@@ -14,9 +14,9 @@ import com.lzx.zhihudaily.eitity.ThemeDailyDetail;
 import com.lzx.zhihudaily.eitity.ThemeInfo;
 import com.lzx.zhihudaily.network.RetrofitHelper;
 
+import io.reactivex.Observable;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import rx.Observable;
 
 /**
  * Created by lzx on 2016/10/21.

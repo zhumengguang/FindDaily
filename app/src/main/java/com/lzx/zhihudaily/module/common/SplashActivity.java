@@ -15,15 +15,9 @@ import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
 import com.lzx.zhihudaily.R;
 import com.lzx.zhihudaily.base.BaseActivity;
-import com.lzx.zhihudaily.eitity.StartImage;
-import com.lzx.zhihudaily.network.RetrofitHelper;
 import com.lzx.zhihudaily.utils.SnackbarUtil;
 import com.lzx.zhihudaily.widget.DailyIconView;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by lzx on 2016/10/21.
@@ -75,7 +69,6 @@ public class SplashActivity extends BaseActivity {
 //                 }, throwable -> {
 //                     showErrorMsg();
 //                 });
-        
         initSplashImage("http://ww4.sinaimg.cn/large/610dc034jw1f41lxgc3x3j20jh0tcn14.jpg");
     }
 

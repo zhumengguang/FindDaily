@@ -2,7 +2,9 @@ package com.lzx.zhihudaily.base;
 
 import android.os.Bundle;
 
-import com.trello.rxlifecycle.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
+
 
 /**
  * Created by lzx on 2016/10/20.

@@ -16,10 +16,9 @@ import com.lzx.zhihudaily.widget.EmptyView;
 import java.util.ArrayList;
 import java.util.List;
 
-import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.functions.Func1;
-import rx.schedulers.Schedulers;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
+
 
 /**
  * Created by xian on 2016/10/23.
@@ -91,13 +90,7 @@ public class CommonListFragment extends BaseFragment {
     private void loadLongComment() {
         RetrofitHelper.getZhihuDailyService().getLongCommentsInfo(newsId)
                 .compose(bindToLifecycle())
-                .flatMap(new Func1<LongOrShortComment, Observable<List<Comment>>>() {
-
-                    @Override
-                    public Observable<List<Comment>> call(LongOrShortComment longOrShortComment) {
-                        return Observable.just(longOrShortComment.getComments());
-                    }
-                })
+                .map(LongOrShortComment::getComments)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::finishTask);
@@ -106,13 +99,7 @@ public class CommonListFragment extends BaseFragment {
     private void loadShortComment() {
         RetrofitHelper.getZhihuDailyService().getShortCommentsInfo(newsId)
                 .compose(bindToLifecycle())
-                .flatMap(new Func1<LongOrShortComment, Observable<List<Comment>>>() {
-
-                    @Override
-                    public Observable<List<Comment>> call(LongOrShortComment longOrShortComment) {
-                        return Observable.just(longOrShortComment.getComments());
-                    }
-                })
+                .map(LongOrShortComment::getComments)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(this::finishTask);
@@ -121,7 +108,7 @@ public class CommonListFragment extends BaseFragment {
     private void finishTask(List<Comment> comments) {
         mSwipeRefreshLayout.setRefreshing(false);
         mCommentAdapter.addAll(comments);
-        if (mCommentAdapter.getCount()==0){
+        if (mCommentAdapter.getCount() == 0) {
             mEmptyView.setEmptyImage(R.drawable.comment_empty);
             mEmptyView.setEmptyText("还没有评论哦!");
         }
